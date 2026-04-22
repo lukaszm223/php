@@ -1,13 +1,10 @@
 <?php
 
-$polaczenie = mysqli_connect("localhost","root","", "projekcik2");
+$polaczenie = mysqli_connect("localhost", "root", "", "projekcik2");
 
 $imie = $_POST['imie'];
 $wiek = $_POST['wiek'];
-$zgoda = $_POST['zgoda'];
-
-
-
+$zgoda = $_POST['zgoda'] ?? 0;
 
 if($zgoda == "on"){
     $zgoda = 1;
@@ -17,5 +14,9 @@ if($zgoda == "on"){
 
 $sql = "INSERT INTO users VALUES (NULL, '$imie', $wiek, $zgoda)";
 
-mysqli_query($polaczenie, $sql);
-header("Location: index.php");
+if(mysqli_affected_rows($polaczenie) >= 1 && $zgoda = 1){
+    mysqli_query($polaczenie, $sql);
+    header("Location: index.php");
+}else{
+    header("Location: error.php");
+}
