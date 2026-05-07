@@ -112,7 +112,7 @@
     <hr>
     <main>
         <!-- p1 -->
-        <form>
+        <form action="exercise/p1.php" method="POST">
             <h3>p1. Send user data form 🙂</h3>
             <sub>Redirect form into <mark>exercise/p1.php</mark>, with method <mark>POST</mark> and display variables from <mark>$_POST[]</mark>.</sub>
             <sub title="Check if `name` attribute isn't missing in inputs.">⚠️ Is missing something?</sub>
@@ -128,17 +128,17 @@
             </span>
         </form>
         <!-- p2 -->
-        <form>
+        <form action="exercise/p2.php" method="POST">
             <h3>p2. Send location of user 💀</h3>
             <sub>Redirect form into <mark>exercise/p2.php</mark>, with correct method.</sub>
             <sub>Display <mark>on your own</mark> data that you got from request.</sub>
             <input type="text" name="name" id="name" placeholder="Your name">
-            <select>
-                <option>Poland</option>
-                <option>Germany</option>
-                <option>Russia</option>
-                <option>Hungary</option>
-                <option>Lativa</option>
+            <select name="country" id="country">
+                <option value="Poland"> Poland</option>
+                <option value="Germany">Germany</option>
+                <option value="Russia">Russia</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Latvia">Lativa</option>
             </select>
             <span>
                 <button>Send</button>
@@ -146,22 +146,22 @@
             </span>
         </form>
         <!-- p3 -->
-        <form>
+        <form action="exercise/p3.php" method="POST">
             <h3>p3. Choose user gender form 👪</h3>
             <sub>Redirect form into <mark>exercise/p3.php</mark>, with correct method.</sub>
             <sub>ℹ️ Remember to include value into inputs</sub>
             <span>
                 <label for="">
-                    Men <input type="radio">
+                    Men <input type="radio" name="radio" value="Men">
                 </label>
                 <label for="">
-                    Women <input type="radio">
+                    Women <input type="radio" name="radio" value="Women">
                 </label>
                 <label for="">
-                    Other <input type="radio">
+                    Other <input type="radio" name="radio" value="Other">
                 </label>
                 <label for="">
-                    Rather not say <input type="radio">
+                    Rather not say <input type="radio" name="radio" value="Rarher not say">
                 </label>
             </span>
             <span>
@@ -169,15 +169,15 @@
             </span>
         </form>
         <!-- p4 -->
-        <form>
+        <form action="exercise/p4.php" method="POST">
             <h3>p4. Validate user form 🧮</h3>
             <sub>Validate: name (min 3 chars), surname (required), checkbox must be checked.</sub>
             <sub>Display errors or success message on <mark>exercise/p4.php</mark>.</sub>
             <sub>ℹ️ Use functions: <mark title="isset($_POST['NAME OF INPUT HERE']) - returns true/false depends of content of input">isset()</mark>, <mark title="empty($_POST['NAME OF INPUT HERE']) - returns true/false depends on emptiness of input">empty()</mark>, <mark title="strlen($_POST['NAME OF INPUT HERE']) - returns number of letters.">strlen()</mark></sub>
-            <input type="text" placeholder="Name here">
-            <input type="text" placeholder="Surname here">
+            <input type="text" name="name" placeholder="Name here" required minlenght="3">
+            <input type="text" name="surname" placeholder="Surname here" required minlenght="3">
             <label for="terms">
-                <input type="checkbox" id="terms">
+                <input type="checkbox" id="terms" name="terms" required>
                 Do you agree on <a href="terms.php">terms</a>?
             </label>
             <span>
@@ -186,7 +186,7 @@
             </span>
         </form>
         <!-- p5 -->
-        <form>
+        <form action="exercise/p5.php" method="POST">
             <h3>p5. Create user in database ⚙️</h3>
             <sub>Redirect form into <mark>exercise/p5.php</mark>, with method correct method.</sub>
             <sub>Send data to table <mark>users</mark> - <a href='./database.sql'>database is ready to download here</a></sub>
@@ -199,8 +199,9 @@
                 <button>Send</button>
             </span>
         </form>
+        
         <!-- p6 -->
-        <form>
+        <form action="exercise/p6.php" method="POST">
             <h3>p6. Add excercise to database ➕</h3>
             <sub>Redirect form into <mark>exercise/p6.php</mark>, with method correct method.</sub>
             <label for="user_id">
@@ -240,16 +241,17 @@
             </span>
         </form>
         <!-- p7 -->
-        <form>
+        <form action="exercise/p7.php" method="GET">
             <h3>p7. Display user and their exercises from database 😶‍🌫️</h3>
             <sub>Redirect form into <mark>exercise/p7.php</mark> and display, with method <mark>GET</mark>.</sub>
             <sub title="Only thing you will need is id from table user and inner join to table exercise">Create correct form for this exercise.</sub>
+            
             <span>
                 <button>Show</button>
             </span>
         </form>
         <!-- p8 -->
-        <form>
+        <form action="exercise/p8.php" method="POST" >
             <h3>p8. Delete user with their exercise ⚠️</h3>
             <sub>Redirect form into <mark>exercise/p8.php</mark>, with method <mark>POST</mark>.</sub>
             <sub title="Only thing you will need is id from table user and remember to remove first exercise">Create correct form for this exercise.</sub>
