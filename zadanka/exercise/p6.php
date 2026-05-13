@@ -1,3 +1,4 @@
+
 <?php
 $polaczenie = mysqli_connect("localhost", "root", "", "php_practice");
 

@@ -112,14 +112,14 @@
     <hr>
     <main>
         <!-- p1 -->
-        <form action="exercise/p1.php" method="POST">
+        <form action='exercise/p1.php' method='POST'>
             <h3>p1. Send user data form 🙂</h3>
             <sub>Redirect form into <mark>exercise/p1.php</mark>, with method <mark>POST</mark> and display variables from <mark>$_POST[]</mark>.</sub>
             <sub title="Check if `name` attribute isn't missing in inputs.">⚠️ Is missing something?</sub>
             <input type="text" name="name" id="name" placeholder="Your name">
             <input type="text" name="surname" id="surname" placeholder="Your surname">
             <label for="terms">
-                <input type="checkbox" id="terms">
+                <input type="checkbox" id="terms" name="terms">
                 Do you agree on <a href="terms.php">terms</a>?
             </label>
             <span>
@@ -133,12 +133,12 @@
             <sub>Redirect form into <mark>exercise/p2.php</mark>, with correct method.</sub>
             <sub>Display <mark>on your own</mark> data that you got from request.</sub>
             <input type="text" name="name" id="name" placeholder="Your name">
-            <select name="country" id="country">
-                <option value="Poland"> Poland</option>
-                <option value="Germany">Germany</option>
-                <option value="Russia">Russia</option>
-                <option value="Hungary">Hungary</option>
-                <option value="Latvia">Lativa</option>
+            <select name="options">
+                <option value="Poland">Poland</option>
+                <option value='Germany'>Germany</option>
+                <option value='Russia'>>Russia</option>
+                <option value='Hungary'>Hungary</option>
+                <option value='Lativa'>Lativa</option>
             </select>
             <span>
                 <button>Send</button>
@@ -152,16 +152,16 @@
             <sub>ℹ️ Remember to include value into inputs</sub>
             <span>
                 <label for="">
-                    Men <input type="radio" name="radio" value="Men">
+                    Men <input value="Men" type="radio" name="radio">
                 </label>
                 <label for="">
-                    Women <input type="radio" name="radio" value="Women">
+                    Women <input value="Women" type="radio" name="radio">
                 </label>
                 <label for="">
-                    Other <input type="radio" name="radio" value="Other">
+                    Other <input value="Other" type="radio" name="radio">
                 </label>
                 <label for="">
-                    Rather not say <input type="radio" name="radio" value="Rarher not say">
+                    Rather not say <input value="Rather not say" type="radio" name="radio">
                 </label>
             </span>
             <span>
@@ -174,10 +174,10 @@
             <sub>Validate: name (min 3 chars), surname (required), checkbox must be checked.</sub>
             <sub>Display errors or success message on <mark>exercise/p4.php</mark>.</sub>
             <sub>ℹ️ Use functions: <mark title="isset($_POST['NAME OF INPUT HERE']) - returns true/false depends of content of input">isset()</mark>, <mark title="empty($_POST['NAME OF INPUT HERE']) - returns true/false depends on emptiness of input">empty()</mark>, <mark title="strlen($_POST['NAME OF INPUT HERE']) - returns number of letters.">strlen()</mark></sub>
-            <input type="text" name="name" placeholder="Name here" required minlenght="3">
-            <input type="text" name="surname" placeholder="Surname here" required minlenght="3">
+            <input type="text" placeholder="Name here">
+            <input type="text" placeholder="Surname here">
             <label for="terms">
-                <input type="checkbox" id="terms" name="terms" required>
+                <input type="checkbox" id="terms">
                 Do you agree on <a href="terms.php">terms</a>?
             </label>
             <span>
@@ -199,7 +199,6 @@
                 <button>Send</button>
             </span>
         </form>
-        
         <!-- p6 -->
         <form action="exercise/p6.php" method="POST">
             <h3>p6. Add excercise to database ➕</h3>
@@ -244,14 +243,30 @@
         <form action="exercise/p7.php" method="GET">
             <h3>p7. Display user and their exercises from database 😶‍🌫️</h3>
             <sub>Redirect form into <mark>exercise/p7.php</mark> and display, with method <mark>GET</mark>.</sub>
+            <label for="user_id">
+                User:
+                <select name="user_id" id="user_id">
+                    <?php
+                    $sql = "SELECT id, first_name FROM users";
+
+                    $result = mysqli_query($conn, $sql);
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $user_id = $row['id'];
+                        $first_name = $row['first_name'];
+
+                        echo "<option value='$user_id'>$first_name</option>";
+                    }
+                    ?>
+                    </select>
+                    </label>
             <sub title="Only thing you will need is id from table user and inner join to table exercise">Create correct form for this exercise.</sub>
-            
             <span>
                 <button>Show</button>
             </span>
         </form>
         <!-- p8 -->
-        <form action="exercise/p8.php" method="POST" >
+        <form>
             <h3>p8. Delete user with their exercise ⚠️</h3>
             <sub>Redirect form into <mark>exercise/p8.php</mark>, with method <mark>POST</mark>.</sub>
             <sub title="Only thing you will need is id from table user and remember to remove first exercise">Create correct form for this exercise.</sub>

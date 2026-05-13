@@ -2,4 +2,4 @@
 
 $radio = $_POST['radio'];
 
-echo $radio;
+echo "<h1>choose : $radio </h1>";

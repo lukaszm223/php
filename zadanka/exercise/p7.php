@@ -24,32 +24,37 @@ if (!$result) {
     die("Query error: " . mysqli_error($conn));
 }
 
-$rows = mysqli_fetch_assoc($result, MYSQLI_ASSOC);
 
 while($row = mysqli_fetch_assoc($result)){
 
-    $user_id = $_POST['user_id'];
-    $title = $_POST['title'];
-    $subject = $_POST['subject'];
-    $description = $_POST['description'];
-    $due_date = $_POST['due_date'];
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $email = $_POST['email'];
-    $student_index = $_POST['student_index'];
+    $user_id = $_row['user_id'];
+    $title = $_row['title'];
+    $subject = $_row['subject'];
+    $description = $_row['description'];
+    $due_date = $_row['due_date'];
+    $first_name = $_row['first_name'];
+    $last_name = $_row['last_name'];
+    $email = $_row['email'];
+    $student_index = $_row['student_index'];
     
-    $id = $row['id'];
 
     echo "
     <div>
-        <h3>Id użytkownika: $user_id</h3>
-        <p>Wiek użytkownika: $title</p>
-        <label for='zgoda'>
-            Czy użytkownik wyraził zgodę:
-        <input type='text' id='zgoda' disabled value=$subject>
-     </label>
+      <table>
+        <tr>
+            <th>user_id</th>
+            <th>title</th>
+            <th>subject</th>
+        </tr>
+        <tr>
+            <td>$user_id</td>
+            <td>$title</td>
+            <td>$subject</td>
+        </tr>
+     </table>
     </div>
     ";
+    header("Location: ../index.php");
 }
 
 $user = $rows[0];
@@ -60,4 +65,5 @@ foreach ($rows as $row) {
         break;
     }
 }
+
 ?>
