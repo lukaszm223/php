@@ -2,11 +2,7 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "", "php_practice");
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-$user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
+$user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 1;
 
 if ($user_id <= 0) {
     echo "<p>No user selected. Please go back and choose a user.</p>";
@@ -20,50 +16,38 @@ $sql = "SELECT u.id AS user_id, u.first_name, u.last_name, u.email, u.student_in
 
 $result = mysqli_query($conn, $sql);
 
-if (!$result) {
-    die("Query error: " . mysqli_error($conn));
-}
-
-
 while($row = mysqli_fetch_assoc($result)){
 
-    $user_id = $_row['user_id'];
-    $title = $_row['title'];
-    $subject = $_row['subject'];
-    $description = $_row['description'];
-    $due_date = $_row['due_date'];
-    $first_name = $_row['first_name'];
-    $last_name = $_row['last_name'];
-    $email = $_row['email'];
-    $student_index = $_row['student_index'];
+    $first_name = $row['first_name'];
+    $last_name = $row['last_name'];
+    $email = $row['email'];
+    $student_index = $row['student_index'];
+    $user_id = $row['user_id'];
+    $title = $row['title'];
+    $description = $row['description'];
+    $subject = $row['subject'];
+    $due_date = $row['due_date'];
     
 
     echo "
     <div>
       <table>
+        <tr1>
+            <th>imie: $first_name |||</th>
+            <th>nazwisko: $last_name |||</th>
+            <th>email: $email |||</th>
+            <th>index: $student_index |||</th>
+        </tr>s
+      </table>
+      <table>  
         <tr>
-            <th>user_id</th>
-            <th>title</th>
-            <th>subject</th>
-        </tr>
-        <tr>
-            <td>$user_id</td>
-            <td>$title</td>
-            <td>$subject</td>
+            <th>id: $user_id |||</th>
+            <th>title: $title |||</th>
+            <th>subject: $subject |||</th>
+            <th>date: $due_date |||</th>
         </tr>
      </table>
     </div>
     ";
-    header("Location: ../index.php");
 }
-
-$user = $rows[0];
-$hasExercises = false;
-foreach ($rows as $row) {
-    if (!empty($row['title'])) {
-        $hasExercises = true;
-        break;
-    }
-}
-
 ?>

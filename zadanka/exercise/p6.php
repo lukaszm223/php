@@ -10,3 +10,4 @@ $due_date = $_POST['due_date'];
 
 $sql ="INSERT INTO exercises VALUES (NULL, '$user_id','$title','$subject','$description', '$due_date',  DEFAULT)";
 mysqli_query($polaczenie, $sql);
+header("Location: ../index.php");

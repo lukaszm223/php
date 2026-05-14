@@ -9,3 +9,4 @@ $student_index = $_POST['student_index'];
 $sql ="INSERT INTO users VALUES (NULL, '$first_name','$last_name','$email','$student_index', DEFAULT)";
 
 mysqli_query($polaczenie, $sql);
+header("Location: ../index.php");
