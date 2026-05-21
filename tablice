@@ -1,0 +1,121 @@
+<?php
+// TABLICE
+$colors = ['bialy','czerwony','zielony'];
+
+echo $colors[0];
+
+$product = [
+    'name' => 'Konrad',
+    'price' => 242,
+    'in_stock' => 'true'
+];
+$numbers = [1, 2, 3, 4];
+
+echo $numbers[0]; 
+
+
+foreach ($numbers as $number) {
+    echo $number . "\n";
+}
+
+array_push($numbers,"niebieski","czarny",);
+
+$fruits = ['jablko','gruszka'];
+
+
+if(in_array('banan', $fruits)){
+
+    echo "znajduje sie";
+}
+else {
+    echo "nie znajduje sie";
+}
+$user = [
+    'name' => 'Jan',
+    'age' => 28,
+    'city' => 'Warszawa'
+];
+echo $user['name'];
+
+foreach ($user as $key => $value) {
+    echo "$key: $value\n";
+}
+$key=array('name','age','city');
+
+// FUNKCJE
+
+function sayHello($name) {
+    return "Witaj $name!";
+}
+echo sayHello('Jan');
+
+function multiply($a, $b) {
+    return $a * $b;
+}
+$result = multiply(6,6);
+echo $result;
+
+function isEven($n) {
+    if($n % 2 == 0){
+        echo "true";
+    } else {
+        echo "false";
+    }
+}
+isEven(4);
+function formatPrice($price) {
+    return number_format($price, 2, '.', '');
+}
+$resultt = formatPrice(234);
+echo $resultt;
+
+function greetUser($namee, $agee) {
+    return "$namee, $agee";
+}
+echo greetUser('Jan','23');
+
+// COOKIE
+
+setcookie('username', 'Jan', time() + (86400 * 7), "/");
+
+if (isset($_COOKIE["username"])){
+    echo "istnieje, " . $_COOKIE['username'];
+}
+$kolor = "grey";
+setcookie('preferowany_kolor', $kolor, time() + (86400 *7), "/");
+
+if (isset($_COOKIE["preferowany_kolor"])){
+    echo "preferowany_kolor, " . $_COOKIE["preferowany_kolor"];
+}
+
+setcookie("username", "", time() - 3600, "/");
+
+ if (isset($_COOKIE["username"])){
+     echo "username, " . $COOKIE["username"];
+ } else {
+     echo "ciasteczko nie istnieje";
+ }
+
+ var_dump($_COOKIE);
+
+ // SESJE
+
+ session_start();
+
+ $_SESSION['ID'] = 123;
+ $_SESSION['imie'] = 'Jan';
+ $_SESSION['email'] = 'Jankorpo@gmail.com';
+ 
+
+ if(isset($_SESSION['imie'])) {
+    echo "dane uzytkownika: " . $_SESSION['imie'] . $_SESSION['ID'] . $_SESSION['email'];
+ }
+ unset($_SESSION['imie']);
+
+ session_destroy();
+
+ $_SESSION['preferowany_jezyk'];
+        $preferowany_jezyk = "pl";
+    if(isset($_SESSION['preferowany_jezyk'])) {
+      echo "preferowany_jezyk: " . $_SESSION['preferowany_jezyk'];
+}
