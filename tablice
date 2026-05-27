@@ -113,9 +113,18 @@ setcookie("username", "", time() - 3600, "/");
  unset($_SESSION['imie']);
 
  session_destroy();
+ $_SESSION['preferowany_jezyk'] = 'pl';
 
- $_SESSION['preferowany_jezyk'];
-        $preferowany_jezyk = "pl";
     if(isset($_SESSION['preferowany_jezyk'])) {
       echo "preferowany_jezyk: " . $_SESSION['preferowany_jezyk'];
+}
+
+// WYJATKI
+
+
+try {
+    $result = 10 / 5;
+    echo $result;
+} catch (DivisionByZeroError $e) {
+    echo "Błąd: " . $e->getMessage();
 }
