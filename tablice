@@ -113,6 +113,7 @@ setcookie("username", "", time() - 3600, "/");
  unset($_SESSION['imie']);
 
  session_destroy();
+
  $_SESSION['preferowany_jezyk'] = 'pl';
 
     if(isset($_SESSION['preferowany_jezyk'])) {
@@ -128,3 +129,60 @@ try {
 } catch (DivisionByZeroError $e) {
     echo "Błąd: " . $e->getMessage();
 }
+
+function email($email){
+    if(!str_contains($email, "@")){
+        throw new INvalidArgumenException("email musi zawierac @"); 
+
+    }
+}
+try{
+    email("przygkadowy@mail.com");
+    echo "email zawiera @";
+}catch(InvalidArgumentException $e) {
+    echo $e -> getMessage();
+}
+
+
+try{
+    $plik = "plik.txt";
+if(!file_exists($plik)) {
+    throw new Exception ("Plik '$plik' nie istnieje");
+}
+
+$plik = fopen($plik);
+echo "plik istnieje";
+fclose($plik);
+
+}catch (Exception $r) {
+    echo "Błąd" . $r -> getMessage();
+}
+
+try{
+    $liczba = 10 / 2;
+    echo $liczba;
+}catch (DivisionByZeroError $t){
+
+    echo "Błąd: " . $t->getMessage();
+
+}finally {
+    echo "Koniec dzielenia";
+}
+
+class mojwyjatek extends Exception{}
+$liczbaABC = 10;
+    try {
+
+        if ($liczbaABC > 0) {
+            throw new mojwyjatek("liczba musi byc wieksza od 0");
+        }
+
+        echo "liczba: $liczbaABC";
+
+    }catch (mojwyjatek $p) {
+        echo "utworzony wyjatek: " . $p->getMessage();
+    }catch (Exception $p) {
+        echo "inny błd: " . $p->getMessage();
+    }finally {
+        echo "koniec wyjatku";
+    }
