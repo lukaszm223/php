@@ -1,0 +1,176 @@
+<h2>1. Połączono</h2>
+<?php
+$polaczenie = mysqli_connect('localhost', 'root', '', 'php_przyklad');
+if($polaczenie) {
+    echo 'Połączono';
+}else{ 'Nie połączono';
+}
+?>
+
+<h2>2. Użytkownicy</h2>
+<?php
+$wynik = mysqli_query($polaczenie, "SELECT * FROM uzytkownicy");
+echo "<table border='1' cellpadding='5'>";
+echo "<tr>
+    <th>ID</th>
+    <th>Nazwa</th>
+    <th>Email</th>
+</tr>";
+
+while($wiersz = mysqli_fetch_assoc($wynik)) {
+    echo "<tr>";
+    echo "<td>".$wiersz['id']."</td>";
+    echo "<td>".$wiersz['nazwa']."</td>";
+    echo "<td>".$wiersz['email']."</td>";
+    echo "</tr>";
+}
+echo "</table>";
+?>
+
+<h2>3. Dodaj nowego użytkownika</h2>
+<form method="post">
+    Nazwa: <input type="text" name="nazwa">
+    Email: <input type="text" name="email">
+    Hasło: <input type="text" name="haslo">
+    <input type="submit" name="dodaj_uzytkownika" value="Dodaj">
+</form>
+
+<?php
+if(isset($_POST['dodaj_uzytkownika'])) {
+    $nazwa = $_POST['nazwa'];
+    $email = $_POST['email'];
+    $haslo = $_POST['haslo'];
+    $sql = "INSERT INTO uzytkownicy (nazwa, email, haslo) VALUES ('$nazwa', '$email', '$haslo')";
+    if(mysqli_query($polaczenie, $sql)) {
+        echo "Użytkownik dodany";
+    } else {
+        echo "Błąd" . mysqli_error($polaczenie);
+    }
+}
+?>
+
+<h2>4. Aktualizuj dane użytkownika</h2>
+<form method="post">
+    ID: <input type="text" name="id">
+    Nowa nazwa: <input type="text" name="nowa_nazwa">
+    Nowy email: <input type="text" name="nowy_email">
+    <input type="submit" name="aktualizuj" value="Aktualizuj">
+</form>
+
+<?php
+if(isset($_POST['aktualizuj'])) {
+    $id = $_POST['id'];
+    $nazwa = $_POST['nowa_nazwa'];
+    $email = $_POST['nowy_email'];
+    $sql = "UPDATE uzytkownicy SET nazwa='$nazwa', email='$email' WHERE id=$id";
+    if(mysqli_query($polaczenie, $sql)) {
+        echo "Dane zaktualizowane";
+    }
+}
+?>
+
+<h2>5. Usuń użytkownika</h2>
+<form method="post">
+    ID <input type="text" name="id_usun">
+    <input type="submit" name="usun" value="Usuń">
+</form>
+
+<?php
+if(isset($_POST['usun'])) {
+    $id = $_POST['id_usun'];
+    $sql = "DELETE FROM koszyk WHERE id_uzytkownika=$id";
+    mysqli_query($polaczenie, $sql);
+    $sql = "DELETE FROM uzytkownicy WHERE id=$id";
+    if(mysqli_query($polaczenie, $sql)) {
+        echo "Użytkownik usunięty";
+    }
+}
+?>
+
+<h2>6. Dostępne produkty</h2>
+<?php
+
+$wynik = mysqli_query($polaczenie, "SELECT * FROM produkty WHERE dostępność = 1");
+if($wynik) {
+    echo "<table border='1' cellpadding='5'>";
+    echo "<tr><th>ID</th><th>Nazwa</th><th>Cena</th></tr>";
+
+    while($w = mysqli_fetch_assoc($wynik)) {
+        echo "<tr><td>".$w['id']."</td><td>".$w['nazwa']."</td><td>".$w['cena']."</td></tr>";
+    }
+    echo "</table>";
+} else {
+    echo "Kolumny nie ma";
+}
+?>
+
+<h2>7. Dodaj produkt</h2>
+<form method="post">
+    Nazwa: <input type="text" name="nazwa">
+    Opis: <input type="text" name="opis">
+    Cena: <input type="text" name="cena">
+    Kategoria: <input type="text" name="kategoria">
+    <input type="submit" name="dodaj_produkt" value="Dodaj">
+</form>
+
+<?php
+if(isset($_POST['dodaj_produkt'])) {
+    $nazwa = $_POST['nazwa'];
+    $opis = $_POST['opis'];
+    $cena = $_POST['cena'];
+    $kategoria = $_POST['kategoria'];
+    
+    $sql = "INSERT INTO produkty (nazwa, opis, cena, kategoria, dostępność) 
+            VALUES ('$nazwa', '$opis', '$cena', '$kategoria', 1)";
+    mysqli_query($polaczenie, $sql);
+    echo "Produkt dodany";
+}
+?>
+
+<h2>8. Zmień cene produktu</h2>
+<form method="post">
+    ID: <input type="text" name="id_prod">
+    Nowa cena: <input type="text" name="nowa_cena">
+    <input type="submit" name="zmien_cene" value="Zmień cenę">
+</form>
+
+<?php
+if(isset($_POST['zmien_cene'])) {
+    $id = $_POST['id_prod'];
+    $cena = $_POST['nowa_cena'];
+    mysqli_query($polaczenie, "UPDATE produkty SET cena='$cena' WHERE id=$id");
+    echo "Zmieniłeś cene";
+}
+?>
+
+<h2>9. Produkty w koszyku użytkownika</h2>
+<?php
+$sql = "SELECT p.nazwa, p.cena, p.kategoria 
+        FROM koszyk k 
+        JOIN produkty p ON k.id_produktu = p.id 
+        WHERE k.id_uzytkownika = 1";
+$wynik = mysqli_query($polaczenie, $sql);
+
+echo "<table border='1' cellpadding='5'>";
+echo "<tr><th>Nazwa</th><th>Cena</th><th>Kategoria</th></tr>";
+while($w = mysqli_fetch_assoc($wynik)) {
+    echo "<tr><td>".$w['nazwa']."</td><td>".$w['cena']."</td><td>".$w['kategoria']."</td></tr>";
+}
+echo "</table>";
+?>
+
+<h2>10. Usuń produkt z koszyka</h2>
+<form method="post">
+    ID: <input type="text" name="id_koszyka">
+    <input type="submit" name="usun_z_koszyka" value="Usuń">
+</form>
+
+<?php
+if(isset($_POST['usun_z_koszyka'])) {
+    $id = $_POST['id_koszyka'];
+    mysqli_query($polaczenie, "DELETE FROM koszyk WHERE id_koszyka = $id");
+    echo "Usunięto";
+}
+?>
+
+<?php mysqli_close($polaczenie); ?>
