@@ -1,0 +1,7 @@
+SELECT f.id_faktury, f.data_faktury, k.id_klienta, k.nazwisko FROM faktury f INNER JOIN klienci k ON f.id_faktury = k.id_klienta ORDER BY k.nazwisko ASC;
+SELECT s.id_samochodu, s.marka, s.model, o.id_opinii, AVG(ocena) FROM samochody s INNER JOIN opinie o ON s.id_samochodu = o.id_opinii ORDER BY AVG(ocena) DESC;
+SELECT k.id_klienta, k.nazwisko, k.imie, s.id_samochodu, s.marka, s.model, w.id_wypozyczenia, COUNT(DISTINCT s.id_samochodu)FROM klienci k INNER JOIN samochody s ON s.id_samochodu = k.id_klienta INNER JOIN wypozyczenia w ON s.id_samochodu = w.id_wypozyczenia ORDER BY s.id_samochodu DESC;
+SELECT s.id_samochodu, s.marka, s.model, r.id_serwisu, r.data_serwisu FROM samochody s INNER JOIN serwisy r ON s.id_samochodu = r.id_serwisu ORDER BY r.data_serwisu DESC;
+SELECT k.id_klienta, k.imie, k.nazwisko, AVG(kwota), w.id_wypozyczenia, DATEDIFF(w.data_zwrotu, w.data_wypozyczenia) FROM klienci k INNER JOIN wypozyczenia w ON k.id_klienta = w.id_wypozyczenia;
+SELECT k.id_klienta, k.imie, k.nazwisko, COUNT(w.id_wypozyczenia) AS liczba_wypozyczen FROM klienci k INNER JOIN wypozyczenia w ON k.id_klienta = w.id_wypozyczenia GROUP BY w.id_wypozyczenia ORDER BY liczba_wypozyczen DESC LIMIT 3;
+SELECT s.id_samochodu, s.marka, s.model FROM samochody s LEFT JOIN opinie o ON s.id_samochodu = s.id_samochodu WHERE o.id_opinii IS NULL;
