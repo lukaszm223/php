@@ -1,69 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Islandia</title>
+    <link rel="stylesheet" href="styl.css">
+</head>
 <body>
-<?php
-$conn = mysqli_connect("localhost", "root", "", "mysqli_example");
-if($conn){
-    echo"Połaczono z bazą danych";
-}else{
-    echo"Połączenie nie powiodło się";
-}?>
-<?php
-$result = mysqli_query($conn, "SELECT * FROM uzytkownicy");
-echo "<table border='1' cellpadding='5'>";
-echo "<tr>
-    <th>ID</th>
-    <th>Nazwa</th>
-    <th>Email</th>
-</tr>";
-
-while($wiersz = mysqli_fetch_assoc($result)) {
-    echo "<tr>";
-    echo "<td>".$wiersz['id']."</td>";
-    echo "<td>".$wiersz['nazwa']."</td>";
-    echo "<td>".$wiersz['email']."</td>";
-    echo "</tr>";
-}
-echo "</table>";
-?>
-<form action='adduser.php' method='POST'>
-    <label for='nazwa'>
-        <p>Podaj swoją nazwę:</p>
-        <input type='text' name='nazwa' id='nazwa'/>
-    </label>
-    <label for='haslo'>
-        <p>Podaj swoje hasło:</p>
-        <input type='password' name='haslo' id='haslo'/>
-    </label>
-    <label for='email'>
-        <p>Podaj swój email:</p>
-        <input type='email' name='email' id='email'/>
-    </label>
-
-    <button>Dodaj</button>
-</form>
-<form method="post" action="aktualizacja.php">
-    <label for="id">
-        <p>Podaj ID:</p>
-        <input type="text" name="id">
-    </label>
-    <label for="nowa_nazwa">
-        <p>Podaj nową nazwę:</p>
-        <input type="text" name="nowa_nazwa">
-    </label>
-    <label for="nowy_email">
-        <p>Podaj nowy email:</p>
-        <input type="text" name="nowy_email">
-    </label>
-    <input type="submit" name="aktualizuj" value="Aktualizuj">
-</form>
-    
+    <header>
+        <h1><a href="obiekty.php">Zwiedzaj Islandie</a></h1>
+    </header>
+    <aside>
+        <h3>Do zwiedzania</h3>
+        <ul>
+                <li>Wodospady:
+                    <ol>
+                        <?php
+                        include_once('skrypt1.php');
+                        ?>
+                    </ol>
+                </li>
+        </ul>
+        <ul>
+                <li>Siedliska zwierząt::
+                    <ol>
+                    <?php
+                        include_once('skrypt2.php');
+                        ?>
+                    </ol>
+                </li>
+        </ul>
+    </aside>
+    <main>
+        <h2>Galeria</h2>
+        <section name="skrypt3" id="skrypt3" method="POST"></section>
+        
+    </main>
+    <footer>
+        <hr>
+        <p>Autor: 0000000</p>
+    </footer>
 </body>
 </html>
-
-
