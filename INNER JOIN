@@ -5,3 +5,6 @@ SELECT s.id_samochodu, s.marka, s.model, r.id_serwisu, r.data_serwisu FROM samoc
 SELECT k.id_klienta, k.imie, k.nazwisko, AVG(kwota), w.id_wypozyczenia, DATEDIFF(w.data_zwrotu, w.data_wypozyczenia) FROM klienci k INNER JOIN wypozyczenia w ON k.id_klienta = w.id_wypozyczenia;
 SELECT k.id_klienta, k.imie, k.nazwisko, COUNT(w.id_wypozyczenia) AS liczba_wypozyczen FROM klienci k INNER JOIN wypozyczenia w ON k.id_klienta = w.id_wypozyczenia GROUP BY w.id_wypozyczenia ORDER BY liczba_wypozyczen DESC LIMIT 3;
 SELECT s.id_samochodu, s.marka, s.model FROM samochody s LEFT JOIN opinie o ON s.id_samochodu = s.id_samochodu WHERE o.id_opinii IS NULL;
+SELECT k.id_klienta, k.imie, k.nazwisko, COUNT(w.id_wypozyczenia) AS liczba_aktywnych_wypozyczen FROM klienci k JOIN wypozyczenia w ON k.id_klienta = w.id_klienta WHERE w.data_zwrotu IS NULL GROUP BY k.id_klienta, k.imie, k.nazwisko HAVING COUNT(w.id_wypozyczenia) > 1 ORDER BY k.nazwisko ASC;
+SELECT s.id_samochodu, s.marka, s.model, COUNT(w.id_wypozyczenia) AS liczba_wypozyczen FROM samochody s JOIN wypozyczenia w ON s.id_samochodu = w.id_samochodu GROUP BY s.id_samochodu, s.marka, s.model ORDER BY liczba_wypozyczen DESC LIMIT 10;
+SELECT id_klienta, AVG(kwota) AS srednia_wartosc FROM wypozyczenia GROUP BY id_klienta HAVING COUNT(*) > 5 ORDER BY srednia_wartosc DESC;
